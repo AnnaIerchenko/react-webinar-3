@@ -3,6 +3,8 @@
  */
 class Store {
   constructor(initState = {}) {
+    //инициализация мах колва элементов списка
+    this.maxCode = initState.list ? Math.max(...initState.list.map(item => item.code), 0) : 0
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
   }
@@ -42,9 +44,15 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const existingCodes = new Set(this.state.list.map(item => item.code))
+    let newCode = this.maxCode + 1
+    while(existingCodes.has(newCode)){
+      newCode++
+    }
+    this.maxCode = newCode
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, { code: newCode, title: `Запись ${newCode}` }]
     })
   };
 
