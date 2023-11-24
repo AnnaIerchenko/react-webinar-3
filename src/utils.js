@@ -26,3 +26,16 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/** 
+ * Функция для определения формы слова раз в зависимости от числа
+ * @param {number}count - Число
+ * @returns {string} - Форма слова "раз"
+ */
+
+export function pluralize(count){
+  const cases = [2, 0, 1, 1, 1, 2]
+  const forms = ['раз', 'раза', 'раз']
+  return forms[(count % 100 > 4 && count % 100 < 20) ? 
+    2 : cases[(count % 10 < 5) ? count % 10 : 5]]
+}
