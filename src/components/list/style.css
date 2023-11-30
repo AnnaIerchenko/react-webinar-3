@@ -1,5 +1,7 @@
 .List {
-
+  /* width: 100%;
+  margin-bottom: 15px; */
+  border-top: 1px dashed #ccc;
 }
 
 .List-item {
