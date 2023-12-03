@@ -5,7 +5,7 @@ import './style.css';
 function Item(props) {
   const callbacks = {
     addItemToCart: () => {
-    props.addItemToCart(props.item);
+    props.addItemToCart(props.item.code);
   },
 };
 
@@ -14,7 +14,7 @@ return (
     <div className="Item-code">{props.item.code}</div>
     <div className="Item-title">{props.item.title}</div>
     <div className="Item-actions">
-      <span className="Item-price">{`${props.item.price} ₽`}</span>
+      <span className="Item-price">{`${props.item.price.toLocaleString('ru-Ru')} ₽`}</span>
       <button onClick={callbacks.addItemToCart}>Добавить</button>
     </div>
   </div>

@@ -23,7 +23,7 @@ function Cart(props) {
     <div className="Cart-money">
     <div className="Cart-sum">
       <span>Итого</span>
-        <span className="Cart-final-sum">{`${props.sumOfItemsInCarts} ₽`}</span>
+        <span className="Cart-final-sum">{`${props.sumOfItemsInCarts.toLocaleString('ru-Ru')} ₽`}</span>
     </div>
     </div>
     </div>

@@ -11,7 +11,8 @@ function Head(props) {
       <div className="Head">
         <h1>{props.Header}</h1>
         <button className="Head-btn" onClick={()=>props.setOpenModal(false)}>Закрыть</button>
-      </div>
+      </div> 
+   
       )}
     </div>
   )

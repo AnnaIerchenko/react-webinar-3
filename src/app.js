@@ -21,15 +21,15 @@ function App({store}) {
 
   const callbacks = {
     addItemToCart: useCallback(
-      (item) => {
-          store.addToCart(item);
+      (code) => {
+          store.addToCart(code);
       },
       [cart]
   ),
 
   removeFromCart: useCallback(
-      (item) => {
-          store.removeFromCart(item);
+      (code) => {
+          store.removeFromCart(code);
       },
       [cart]
   ),
@@ -37,7 +37,7 @@ function App({store}) {
   return (
     <PageLayout>
       <Head 
-        title='Приложение'   
+        title='Магазин'   
       />
       <Controls 
         caption={"Перейти"}
@@ -52,16 +52,14 @@ function App({store}) {
       ))}
       />
       {openModal && (
-        <Modal 
-          children={
+        <Modal>
             <Cart
               cart={cart}
               setOpenModal={setOpenModal}
               sumOfItemsInCarts={sumOfItemsInCarts}
               removeFromCart={callbacks.removeFromCart}
             />
-          }
-        />
+        </Modal>
       )}
     </PageLayout>
   );

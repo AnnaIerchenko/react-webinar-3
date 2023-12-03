@@ -12,18 +12,18 @@ function Controls(props) {
           one: "товар",
           few: "товара",
           many: "товаров",
-        })} / ${props.sumOfItemsInCarts} ₽`
+        })} / ${props.sumOfItemsInCarts.toLocaleString('ru-Ru')} ₽`
       : "пусто"}
   </span>
-  <button onClick={() => props.setOpenModal(true)}>{props.caption}</button>
+  <button className="Controls button" onClick={() => props.setOpenModal(true)}>{props.caption}</button>
   </div>
   );
 }
 
 Controls.propTypes = {
   title: PropTypes.string,
-  counter:PropTypes.number,
-  sumOfItemsInCarts:PropTypes.number,
+  counter: PropTypes.number,
+  sumOfItemsInCarts: PropTypes.number,
   setOpenModal: PropTypes.func,
 };
 
