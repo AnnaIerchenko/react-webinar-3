@@ -1,5 +1,4 @@
 import React from 'react'
-import useSelector from '../../store/use-selector'
 import PropTypes from "prop-types"
 import {numberFormat} from '../../utils'
 import {cn as bem} from "@bem-react/classname"
@@ -7,39 +6,40 @@ import "./style.css"
 
 const ItemInfo = (props) => {
   const cn = bem('ItemInfo')
-  const select = useSelector(state => ({
-    item: state.itemInfo.item,
-  }))
-  if(!select.item){
+  // const select = useSelector(state => ({
+  //   item: state.itemInfo.item,
+  // }))
+  if(!props.item){
     return <div className='error'>Item not found</div>
   }
   const callbacks = {
     onAdd: () => props.addProduct({
-      _id: select.item._id,
-      price: select.item.price,
+      _id: props.item._id,
+      price: props.item.price,
+      title: props.item.title
     })
   }
 
   return (
     <div className={cn()}>
-      <p className={cn('description')}>{select.item?.description}</p>
+      <p className={cn('description')}>{props.item?.description}</p>
       <p className={cn('production')}>
         Страна производитель:  
       <strong>
-        {select.item?.madeIn?.title}{`(${select.item?.madeIn?.code})`}
+        {props.item?.madeIn?.title}{`(${props.item?.madeIn?.code})`}
       </strong>
       </p>
       <p className={cn('category')}>
         Категория
-        <strong>{select.item?.category?.title}</strong>
+        <strong>{props.item?.category?.title}</strong>
       </p>
       <p className={cn('year-production')}>
         Год выпуска:
-        <strong>{select.item?.edition}</strong>
+        <strong>{props.item?.edition}</strong>
       </p>
       <p className={(cn('price'))}>
         Цена:
-        {numberFormat(select.item?.price)} P
+        {numberFormat(props.item?.price)} P
       </p>
       <button onClick={callbacks.onAdd}>Добавить</button>
     </div>
@@ -48,6 +48,20 @@ const ItemInfo = (props) => {
 
 ItemInfo.propTypes = {
   addProduct: PropTypes.func,
+  item: PropTypes.shape({
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    title: PropTypes.string,
+    description: PropTypes.string,
+    price: PropTypes.number,
+    madeIn: PropTypes.shape({
+      title: PropTypes.string,
+      code: PropTypes.string
+    }),
+    edition: PropTypes.number,
+    category: PropTypes.shape({
+      title: PropTypes.string,
+    }),
+  })
 }
 
 ItemInfo.defaultProps = {

@@ -6,6 +6,7 @@ import Head from '../../components/head'
 import BasketTool from '../../components/basket-tool'
 import ItemInfo from '../../components/item-info'
 import useSelector from '../../store/use-selector'
+import Nav from '../../components/nav'
 
 const ItemInfoPage = () => {
   const store = useStore()
@@ -26,16 +27,20 @@ const ItemInfoPage = () => {
     addProduct: useCallback(product => store.actions.basket.addProduct(product), [store]),
     //open cart-modal
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    setPage: useCallback((num) => store.actions.catalog.setPage(num), [store]),
   }
   return (
     <PageLayout>
       <Head title={select.item?.title} />
-      <BasketTool 
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      />
-      <ItemInfo addProduct={callbacks.addProduct} />
+      <div className='inner-head'>
+        <Nav setPage={callbacks.setPage}/>    
+        <BasketTool 
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        />
+       </div>
+      <ItemInfo addProduct={callbacks.addProduct} item={select.item} />
     </PageLayout>
   
   )

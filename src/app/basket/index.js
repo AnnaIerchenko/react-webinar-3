@@ -28,6 +28,7 @@ function Basket() {
       return <ItemBasket item={item} 
         onRemove={callbacks.removeFromBasket}
         onClose={callbacks.closeModal}
+        link={`item-info/${item._id}`}
         />
     }, [callbacks.removeFromBasket]),
   };

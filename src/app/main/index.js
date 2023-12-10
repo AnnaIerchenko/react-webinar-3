@@ -7,6 +7,7 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
+import Nav from '../../components/nav';
 
 function Main() {
 
@@ -18,8 +19,8 @@ function Main() {
     count: state.catalog.count,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    page: state.pagination.page,
-    limit: state.pagination.limit,
+    page: state.catalog.page,
+    limit: state.catalog.limit,
   }));
 
   // const fetchItems = async() => {
@@ -36,25 +37,37 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    setPage: useCallback((num) => store.actions.pagination.setPage(num),[store]),
+    setPage: useCallback((num) => store.actions.catalog.setPage(num),[store]),
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
+      return <Item 
+        item={item} 
+        onAdd={callbacks.addToBasket}
+        link={`item-info/${item._id}`}  
+      />
     }, [callbacks.addToBasket]),
   };
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <BasketTool 
-        onOpen={callbacks.openModalBasket} 
-        amount={select.amount}
-        sum={select.sum}
-      />
+      <div className='inner-head'>
+        <Nav setPage={callbacks.setPage }/>
+        <BasketTool 
+          onOpen={callbacks.openModalBasket} 
+          amount={select.amount}
+          sum={select.sum}
+        />
+      </div>
       <List list={select.list} renderItem={renders.item}/>
-      <Pagination pagination={callbacks.setPage} />
+      <Pagination 
+        pagination={callbacks.setPage}
+        count={select.count}
+        page={select.page}
+        limit={select.limit}  
+      />
     </PageLayout>
 
   );

@@ -13,7 +13,7 @@ class ItemInfo extends StoreModule {
     this.setState({
       ...this.getState(),
       item: {
-        id: json.result._id,
+        _id: json.result._id,
         title: json.result.title,
         description: json.result.description,
         price: json.result.price,
