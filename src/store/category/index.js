@@ -20,7 +20,7 @@ class CatalogState extends StoreModule {
       return { title: el.title, value: el._id, _id: el._id, parent: (el.parent?._id || null)}
     })
     const tree = createTree(items)
-    const list = [{ title: 'Все', value: ''}, ...items]
+    const list = [{ title: 'Все', value: ''}, ...tree]
     this.setState({
       ...this.getState(),
       list
