@@ -16,13 +16,21 @@ class CatalogState extends StoreModule {
     const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*')
     const json = await response.json()
     const result = json.result
-    const items = result.items.map(el => {
-      return { title: el.title, value: el._id, _id: el._id, parent: (el.parent?._id || null)}
-    })
+    const items = result.items.map((el) => ({
+        title: el.title, 
+        value: el._id, 
+        _id: el._id, 
+        parent: (el.parent?._id || null),
+    }))
     const tree = createTree(items)
     const list = [{ title: 'Все', value: ''}, ...tree]
     this.setState({
       ...this.getState(),
+      category: {
+        params: {
+          category: null,
+        }
+      },
       list
     }, 'Загрузили список категорий из API')
   }

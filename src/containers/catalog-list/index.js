@@ -21,7 +21,7 @@ function CatalogList() {
     waiting: state.catalog.waiting,
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    category: state.category.params.category,
+    category: state.category,
   }));
 
   const callbacks = {
