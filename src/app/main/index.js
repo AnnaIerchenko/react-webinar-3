@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import {memo, useCallback} from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -23,11 +23,20 @@ function Main() {
 
   const {t} = useTranslate();
 
+  const callbacks = {
+    changeLanguage: useCallback(async() => {
+      await Promise.all([
+        store.actions.catalog.initParams(),
+        store.actions.categories.load()
+      ])
+    }, [])
+  }
+
   return (
     <PageLayout>
       <TopHead/>
       <Head title={t('title')}>
-        <LocaleSelect/>
+        <LocaleSelect changeLanguage={callbacks.changeLanguage} />
       </Head>
       <Navigation/>
       <CatalogFilter/>
